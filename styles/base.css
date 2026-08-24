@@ -1,0 +1,28 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-primary: #1c1814;
+  --bg-secondary: #1a1612;
+  --bg-tertiary: #24201c;
+  --bg-hover: #2e2822;
+  --bg-active: #363028;
+  --border-color: #2a2420;
+  --text-primary: #f0e8d8;
+  --text-secondary: #b09878;
+  --text-muted: #706050;
+  --accent: #ff6a00;
+  --accent-hover: #ff8533;
+  --accent-dim: rgba(255, 106, 0, 0.15);
+  --accent-glow: rgba(255, 106, 0, 0.03);
+  --radius: 16px;
+  --sidebar-width: 64px;
+  --sidebar-expanded: 240px;
+  --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+

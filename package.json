@@ -1,0 +1,33 @@
+{
+  "name": "sot-scope-osint-training",
+  "version": "1.0.0",
+  "description": "SOT - Scope OSINT Training",
+  "author": "scope_moon",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/x-cicada-ru/Scope-OSINT-Training.git"
+  },
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:win64": "electron-builder --win --x64"
+  },
+  "build": {
+    "appId": "com.scope.sot",
+    "productName": "SOT - Scope OSINT Training",
+    "win": {
+      "target": "portable"
+    },
+    "portable": {
+      "artifactName": "SOT-${arch}.${ext}"
+    }
+  },
+  "devDependencies": {
+    "electron": "^41.10.3"
+  },
+  "dependencies": {
+    "animejs": "^4.5.0",
+    "marked": "^18.0.7",
+    "mermaid": "^11.17.0"
+  }
+}

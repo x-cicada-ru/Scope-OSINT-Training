@@ -1,0 +1,422 @@
+﻿/* в”Ђв”Ђ CVE-style header & search (reused by Criminology) в”Ђв”Ђ */
+.cve-header {
+  flex-shrink: 0;
+  padding: 20px 24px;
+  padding-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cve-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: var(--bg-tertiary);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  max-width: 480px;
+  width: 100%;
+  color: var(--text-muted);
+  transition: border-color 0.2s;
+}
+
+.cve-search:focus-within {
+  border-color: rgba(255,255,255,0.15);
+}
+
+.cve-search input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+}
+
+.cve-search input::placeholder {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+/* в”Ђв”Ђ Criminology Grid (like CVE) в”Ђв”Ђ */
+.crim-grid {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  padding: 12px 24px 24px;
+  align-content: start;
+  will-change: transform;
+  scrollbar-width: none;
+}
+
+.crim-grid::-webkit-scrollbar { display: none; }
+
+.crim-card {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+  min-height: 110px;
+  contain: layout style;
+}
+
+.crim-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.crim-card:hover {
+  border-color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.crim-card:hover::before { opacity: 1; }
+
+.crim-card.cat-technique::before { background: linear-gradient(90deg,#818cf8,#6366f1); }
+.crim-card.cat-tactics::before { background: linear-gradient(90deg,#34d399,#10b981); }
+.crim-card.cat-methodology::before { background: linear-gradient(90deg,#fbbf24,#f59e0b); }
+.crim-card.cat-theory::before { background: linear-gradient(90deg,#f472b6,#ec4899); }
+
+.crim-card-id {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.crim-card-badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 5px;
+  letter-spacing: 0.4px;
+  flex-shrink: 0;
+}
+
+.crim-card-badge.cat-technique { background: rgba(129,140,248,0.15); color: #818cf8; }
+.crim-card-badge.cat-tactics { background: rgba(52,211,153,0.15); color: #34d399; }
+.crim-card-badge.cat-methodology { background: rgba(251,191,36,0.15); color: #fbbf24; }
+.crim-card-badge.cat-theory { background: rgba(244,114,182,0.15); color: #f472b6; }
+
+.crim-card-cat {
+  font-size: 10px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.crim-card-title {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--text-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.crim-card-desc {
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.crim-card-bottom {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.crim-card-tag {
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.04);
+  color: var(--text-muted);
+}
+
+.crim-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+/* в”Ђв”Ђ Criminology Modal в”Ђв”Ђ */
+.crim-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+
+.crim-modal.open,
+.crim-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.crim-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+}
+
+.crim-modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  overflow-y: auto;
+  animation: crimModalIn 0.25s ease-out;
+  scrollbar-width: none;
+}
+
+.crim-modal-content::-webkit-scrollbar { display: none; }
+
+@keyframes crimModalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.crim-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  position: sticky;
+  top: 0;
+  background: var(--bg-secondary);
+  z-index: 1;
+}
+
+.crim-modal-close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.crim-modal-close:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.crim-modal-body { padding: 20px; scrollbar-width: none; }
+
+.crim-modal-body::-webkit-scrollbar { display: none; }
+
+.crim-modal-body p {
+  margin: 0 0 12px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.crim-modal-body p:last-child { margin-bottom: 0; }
+
+.crim-modal-body strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.crim-modal-body em {
+  font-style: italic;
+}
+
+.crim-modal-body code {
+  font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: rgba(255,255,255,0.06);
+  padding: 1px 5px;
+  border-radius: 4px;
+  color: var(--text-primary);
+}
+
+.crim-modal-body pre {
+  background: #1c1c1c;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  margin: 12px 0;
+  position: relative;
+}
+
+.crim-modal-body pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--text-primary);
+  display: block;
+  overflow-x: auto;
+  white-space: pre;
+  tab-size: 2;
+}
+
+.crim-modal-body table {
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 13px;
+  width: 100%;
+}
+
+.crim-modal-body th,
+.crim-modal-body td {
+  border: 1px solid var(--border-color);
+  padding: 6px 10px;
+  text-align: left;
+  color: var(--text-secondary);
+}
+
+.crim-modal-body th {
+  background: rgba(255,255,255,0.04);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.crim-modal-body ul,
+.crim-modal-body ol {
+  padding-left: 1.4em;
+  margin: 0 0 12px;
+}
+
+.crim-modal-body li {
+  margin-bottom: 4px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.crim-modal-body a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.crim-modal-body a:hover {
+  color: var(--accent-hover);
+}
+
+.crim-modal-body blockquote {
+  border-left: 3px solid var(--border-color);
+  padding-left: 12px;
+  margin: 12px 0;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.crim-modal-body hr {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 16px 0;
+}
+
+.crim-modal-body h1,
+.crim-modal-body h2,
+.crim-modal-body h3,
+.crim-modal-body h4 {
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 20px 0 8px;
+  line-height: 1.3;
+}
+
+.crim-modal-body h1 { font-size: 18px; }
+.crim-modal-body h2 { font-size: 16px; }
+.crim-modal-body h3 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.3px; }
+
+.crim-modal-title {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+
+.crim-modal-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.crim-modal-section { margin-bottom: 16px; }
+
+.crim-modal-section h3 {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.crim-modal-section p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.crim-modal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.crim-modal-list li {
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
