@@ -1,136 +1,24 @@
-# SOT - Scope OSINT Training
+# Полный набор OSINT-мануалов
 
-<p align="center">
-  <img src="assets/animations/claude.svg" alt="SOT" width="120">
-</p>
+Создано: **200 markdown-файлов**.
 
-**SOT (Scope OSINT Training)** — десктоп-платформа для обучения разведке по открытым источникам (OSINT) с персональным AI-инструктором и библиотекой из 200 практических методик в 20 направлениях.
+Структура: 20 направлений × 10 мануалов на направление.
 
----
+## Важное замечание о классификации
 
-## Автор
+Единого официального дерева из ровно этих 19 ветвей OSINT не существует. Поэтому перечень основан на рабочей классификации из предыдущего сообщения. Отдельно от классификации проверялась методология: Bellingcat Toolkit, GIJN, SEC, OpenCorporates, EFF, USGS, IMO, MITRE ATT&CK и OSINT Foundation.
 
-Проект создан и поддерживается **scope_moon**:
+## Источники верхнего уровня
 
-- Telegram: [@scope_moon](https://t.me/scope_moon)
-- Репозиторий: [github.com/x-cicada-ru/Scope-OSINT-Training](https://github.com/x-cicada-ru/Scope-OSINT-Training)
+- Bellingcat Toolkit: https://bellingcat.gitbook.io/toolkit
+- Bellingcat Online Investigations Toolkit: https://www.bellingcat.com/resources/2024/09/24/bellingcat-online-investigations-toolkit/
+- GIJN: https://gijn.org/
+- SEC EDGAR: https://www.sec.gov/search-filings
+- OpenCorporates: https://knowledge.opencorporates.com/
+- EFF Surveillance Self-Defense: https://ssd.eff.org/
+- USGS Landsat: https://pubs.usgs.gov/fs/2022/3058/fs20223058.pdf
+- IMO AIS: https://www.imo.org/en/ourwork/safety/pages/ais.aspx
+- MITRE ATT&CK: https://attack.mitre.org/
+- OSINT Foundation Standards: https://www.osintfoundation.com/osint/Standards.asp
 
-## Возможности
-
-| Раздел | Описание |
-|---|---|
-| **Home** | Обзор платформы и быстрый доступ ко всем разделам |
-| **AI Agent** | AI-инструктор: объясняет любую тему как преподаватель — теория, демонстрация, пошаговая методика, визуальная схема процесса (Mermaid-диаграммы рендерятся прямо в чате), таблица инструментов, разбор типичных ошибок и OPSEC, домашнее задание |
-| **Documents of OSINT** | Библиотека знаний: 200 мануалов в 20 категориях (SOCMINT, GEOINT, IMINT, CRYPTO, DARKWEB, DIGITAL_FORENSICS и др.) с поиском, фильтрами и чтением внутри приложения |
-| **Documents of Criminology** | Справочник криминалистических методик |
-| **Chat history** | История всех диалогов с инструктором — хранится локально |
-| **Settings** | Внешний вид (8 тем оформления) и управление API-ключами |
-| **Support** | Прямая связь с автором через Telegram |
-
-## Технологии
-
-Electron · JavaScript (ESM) · marked · highlight.js · Mermaid · NVIDIA NIM API
-
----
-
-## Установка и запуск
-
-### Требования
-
-- [Node.js](https://nodejs.org) 18+
-- npm (поставляется с Node.js)
-- Ключ [NVIDIA NIM API](https://build.nvidia.com) (бесплатный, формат `nvapi-...`)
-
-### Запуск из исходников
-
-```bash
-git clone https://github.com/x-cicada-ru/Scope-OSINT-Training.git
-cd Scope-OSINT-Training
-npm install
-npm start
-```
-
-### Сборка установщика (Windows)
-
-```bash
-npm run build:win64
-```
-
-Готовый портативный exe появится в папке `dist/`.
-
----
-
-## Использование
-
-### Первый запуск
-
-1. При первом старте приложение попросит API-ключ
-2. Откройте **Settings → API ключи**
-3. Получите бесплатный ключ на [build.nvidia.com](https://build.nvidia.com) (кнопка *Get API Key*)
-4. Вставьте ключ в поле и нажмите **«Сохранить ключ»**
-
-Ключ сохраняется локально в `user.json` и не покидает ваше устройство. В коде приложения ключей нет.
-
-### Работа с AI-инструктором
-
-1. Перейдите в раздел **AI Agent**
-2. Задайте вопрос или тему урока, например:
-   - «Как искать человека по нику в открытых источниках?»
-   - «Расскажи про анализ метаданных изображений»
-   - «Составь урок по геолокации по фото»
-3. Инструктор ответит структурированным уроком со схемой-диаграммой, таблицей инструментов и домашним заданием
-4. Можно продолжать диалог — инструктор помнит контекст беседы
-
-### Работа с библиотекой
-
-1. Откройте **Documents of OSINT**
-2. Найдите нужную методику через поиск или фильтр по категории
-3. Кликните по карточке — мануал откроется полностью оформленным текстом
-
-### Персонализация
-
-- **Settings → Внешний вид**: 8 цветовых тем, применяются мгновенно
-- **Profile** (клик по аватару внизу меню): имя, email и фото профиля
-
----
-
-## Структура проекта
-
-```
-├── main.js                  # Главный процесс: окна, IPC, стриминг LLM
-├── preload.js               # Безопасный мост renderer ↔ main
-├── index.html               # Каркас приложения
-├── src/renderer/
-│   ├── app.js               # Роутинг разделов
-│   ├── sections.js          # Разделы: AI Agent, Settings, Support...
-│   ├── dashboard.js         # Home
-│   ├── theme.js             # Темы оформления
-│   ├── utils.js             # Markdown/код/Mermaid-рендеринг
-│   ├── criminology/         # Данные и рендерер криминалистики
-│   └── OSINT/               # Markdown-корпус + генерируемый каталог
-├── scripts/
-│   └── gen-osint-data.mjs   # Сборка osintData.js из md-корпуса
-└── styles/                  # CSS (layout, base, criminology)
-```
-
-Пересборка каталога OSINT после изменения md-файлов:
-
-```bash
-node scripts/gen-osint-data.mjs
-```
-
----
-
-## Правовая оговорка
-
-SOT создан исключительно в **образовательных целях**. Все материалы описывают работу с общедоступными источниками информации. Использование материалов для незаконного доступа к данным, нарушения приватности или иных противоправных действий запрещено. Авторы не несут ответственности за неправомерное использование.
-
-## Поддержка
-
-Нашли баг или есть предложение? Пишите:
-
-**Telegram: [@scope_moon](https://t.me/scope_moon)**
-
----
-
-<p align="center">SOT - Scope OSINT Training © scope_moon</p>
+Каждый файл содержит минимум 1000 слов и список источников/ссылок.
